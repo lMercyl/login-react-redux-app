@@ -19,11 +19,9 @@ const Login = () => {
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     const auth = getAuth();
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then(({ user }) => {
-        console.log(user);
         dispatch(
           setUser({
             email: user.email,
@@ -31,7 +29,7 @@ const Login = () => {
             id: user.uid,
           }),
         );
-        navigate('/contacts');
+        navigate('/login-react-redux-app/contacts');
       })
       .catch((err) => console.log(err));
   };
