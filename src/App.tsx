@@ -6,8 +6,8 @@ import Contacts from './pages/Сontacts';
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/contacts" element={<Contacts />} />
+      <Route path="/login-react-redux-app" element={<Login />} />
+      <Route path="/login-react-redux-app/contacts" element={<Contacts />} />
     </Routes>
   );
 };
