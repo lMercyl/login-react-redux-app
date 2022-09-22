@@ -21,6 +21,7 @@ const Contacts = () => {
 
   const { isAuth, email } = useAuth();
 
+  const [search, setSearch] = React.useState<string>('');
   const [show, setShow] = React.useState<boolean>(false);
   const [contact, setContact] = React.useState<Contact>({
     name: '',
@@ -35,6 +36,19 @@ const Contacts = () => {
       phone: '',
       id: '',
     });
+  };
+
+  const onChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
+  const filterList = (value: string) => {
+    return value === ''
+      ? list
+      : list.filter(
+          (item: Item) =>
+            item.name.toLowerCase().includes(value.toLowerCase()) || item.phone.includes(value),
+        );
   };
 
   const handleShow = (id: string) => {
@@ -99,13 +113,17 @@ const Contacts = () => {
         <Col lg={6}>
           <InputGroup className="mb-3">
             <InputGroup.Text id="inputGroup-sizing-default">Search</InputGroup.Text>
-            <Form.Control aria-label="Default" aria-describedby="inputGroup-sizing-default" />
+            <Form.Control
+              onChange={onChangeSearch}
+              aria-label="Default"
+              aria-describedby="inputGroup-sizing-default"
+            />
           </InputGroup>
         </Col>
       </Row>
       <ul>
         <Row className="gy-3 flex-column align-items-center p-3">
-          {list.map((item: Item) => (
+          {filterList(search).map((item: Item) => (
             <Col key={item.id} lg={6}>
               <li className="d-flex justify-content-between align-items-center">
                 <span>{item.phone}</span>
